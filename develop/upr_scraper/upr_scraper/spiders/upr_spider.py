@@ -1,5 +1,4 @@
 import scrapy
-import json
 import os
 import re
 
@@ -20,14 +19,14 @@ class UprSpiderSpider(scrapy.Spider):
         directory = "contents"
         if not os.path.exists(directory):
             os.makedirs(directory)
-        filename = os.path.join(directory, f"{data["title"]}.json")
+        filename = os.path.join(directory, f"{data["title"]}.txt")
 
         try:
             with open(filename, "x") as f:
-                json.dump(data, f, indent=4)
+                f.write(str(data))
         except FileExistsError:
             with open(filename, "w") as f:
-                json.dump(data, f, indent=4)
+                f.write(str(data))
         except Exception as e:
             print("Error: " + str(e))
 
